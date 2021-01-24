@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\FunkoCollectionController;
+use App\Http\Controllers\Api\FunkoController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//PARA LARAVEL 8* LAS RUTAS SON ASÍ
+Route::resource('funkos', FunkoController::class);
+Route::resource('funkos_collection', FunkoCollectionController::class);

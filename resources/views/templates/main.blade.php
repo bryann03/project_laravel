@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
+        <div class="container mt-4" >
             @yield('principal')
         </div>
     </div>

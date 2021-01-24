@@ -16,10 +16,16 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+import Vuex from "vuex";
+Vue.use(Vuex);
+
+import store from "../js/store";
+
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('home', require('./components/Home.vue').default);
+Vue.component('funko-card', require('./components/FunkoCard.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
