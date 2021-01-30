@@ -20,7 +20,8 @@ export default new Vuex.Store({
           .get("/" + ruta)
           .then(function(response) {
             const datos = response.data;
-            commit(nombreTabla, datos);
+            console.log(datos);
+            // commit(nombreTabla, datos);
           })
           .catch(function(error) {
             console.log(error);

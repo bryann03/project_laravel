@@ -11,8 +11,22 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
+    data(){
+        return{
 
+        };
+    },
+    created() {
+        this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'})
+    },
+    methods: {
+        ...mapActions(["getApi"])
+    },
+    computed: {
+        ...mapState(['arrayFunkosCollecion'])
+    }
 }
 </script>
 <style lang="scss">

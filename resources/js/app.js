@@ -35,4 +35,5 @@ Vue.component('funko-card', require('./components/FunkoCard.vue').default);
 
 const app = new Vue({
     el: '#app',
+    store
 });
