@@ -19,13 +19,13 @@ export default {
         };
     },
     created() {
-        this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'})
+        // this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'})
     },
     methods: {
-        ...mapActions(["getApi"])
+        // ...mapActions(["getApi"])
     },
     computed: {
-        ...mapState(['arrayFunkosCollecion'])
+        // ...mapState(['arrayFunkosCollecion'])
     }
 }
 </script>

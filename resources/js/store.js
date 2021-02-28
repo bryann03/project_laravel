@@ -10,6 +10,7 @@ export default new Vuex.Store({
     },
     mutations: {
       funkos_collection(state, datosRecibidos) {
+        console.log(datosRecibidos);
         state.arrayFunkosCollection = datosRecibidos;
       },
     },
@@ -20,8 +21,8 @@ export default new Vuex.Store({
           .get("/" + ruta)
           .then(function(response) {
             const datos = response.data;
-            console.log(datos);
-            // commit(nombreTabla, datos);
+            // console.log(datos);
+            commit(nombreTabla, datos);
           })
           .catch(function(error) {
             console.log(error);

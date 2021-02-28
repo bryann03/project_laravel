@@ -17,7 +17,7 @@ class FunkoController extends Controller
     public function index()
     {
         $funko = Funko::all();
-        return FunkoResource::collection($funko);
+        return FunkoResource::collection($funko)->all();
     }
 
     /**
