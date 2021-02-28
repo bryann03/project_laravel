@@ -1,10 +1,17 @@
 <template>
     <main>
         <h1 class="text-center">Stock Funko Pop</h1>
+        <button id="show-modal" type="button" class="btn btn-success" @click="showModal = true">Add New Collection</button>
+
+        <!-- MODAL ADD COLLECTION -->
+        <modal-new-collection v-if="showModal" @close="showModal = false">
+
+        </modal-new-collection>
+        <!-- FIN MODAL -->
         <div class="row text-center mt-5 justify-content-center">
             <div v-for="collection in arrayFunkosCollection" :key="collection.id"
                 class="col-lg-6 col-sm-12 col-md-10">
-                <funko-card></funko-card>
+                <funko-card v-bind:collection="collection"></funko-card>
             </div>
             <!-- <div class="col-lg-6 col-sm-12 col-md-10">
                 <funko-card></funko-card>
@@ -21,16 +28,16 @@
 
 <script>
 import FunkoCard from './FunkoCard.vue'
+import ModalNewCollection from './ModalNewCollection'
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
     data(){
         return{
-
+            showModal: false
         };
     },
     created() {
         this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'});
-        // console.log(this.arrayFunkosCollection);
     },
     methods: {
         ...mapActions(["getApi"])

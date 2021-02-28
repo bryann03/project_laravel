@@ -26,6 +26,8 @@ import store from "../js/store";
 
 Vue.component('home', require('./components/Home.vue').default);
 Vue.component('funko-card', require('./components/FunkoCard.vue').default);
+Vue.component('modal-new-collection', require('./components/ModalNewCollection').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

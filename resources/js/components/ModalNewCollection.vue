@@ -1,3 +1,35 @@
+<template>
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3> New Collection </h3>
+          </div>
+
+          <div class="modal-body">
+            <form action="">
+                <div class="form-controller">
+                    <input type="text" name="" id="" placeholder="Name" class="form-control">
+                </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              default footer
+              <button class="btn btn-danger btn-block" @click="$emit('close')">
+                Cancel
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<style lang="css">
 .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -61,3 +93,5 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
+
+</style>

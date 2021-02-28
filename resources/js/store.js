@@ -9,8 +9,7 @@ export default new Vuex.Store({
       arrayFunkosCollection: []
     },
     mutations: {
-      funkos_collection(state, datosRecibidos) {
-        console.log(datosRecibidos);
+      collection(state, datosRecibidos) {
         state.arrayFunkosCollection = datosRecibidos;
       },
     },
