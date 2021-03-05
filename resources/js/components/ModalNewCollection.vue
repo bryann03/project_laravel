@@ -10,30 +10,63 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="">
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" required id="recipient-name" placeholder="Name" name="name">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" name="image">
+                                    <label class="custom-file-label" for="customFile">Choose image</label>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <slot name="footer">
-                            default footer
-                            <button class="btn btn-danger btn-block" @click="$emit('close')">
-                                Cancel
-                            </button>
-                        </slot>
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-danger" @click="$emit('close')">Cancel</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-success">Add</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </transition>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+            showModal: false,
+            obejctCollection:{
+                name:'',
+                image:''
+            }
+        };
+    },
+    created() {
+        this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'});
+    },
+    methods: {
+        insertCollection(){
+            let me = this;
+            axios
+                .post('/funkos_collection', this.obejctCollection)
+                .then( (response) => {
+
+                })
+                .cath( (error) => {
+                    console.log(error);
+                })
+        }
+    }
+}
+</script>
 
 <style lang="css">
 .modal-mask {

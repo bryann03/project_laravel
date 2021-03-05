@@ -28,7 +28,15 @@ class FunkoCollectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $funko_collection = new FunkoCollection();
+
+        $funko_collection->name = $request->input('name');
+        $image_file = $request->input('image');
+        echo "\nIMAGE: $image_file";
+        echo "\n";
+        die;
+
+        return $request;
     }
 
     /**
