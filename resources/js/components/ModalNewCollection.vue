@@ -10,13 +10,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="">
+                        <form action>
                             <div class="form-group">
-                                <input type="text" class="form-control" required id="recipient-name" placeholder="Name" name="name">
+                                <input type="text" class="form-control" required id="recipient-name" placeholder="Name" v-model="objectCollection.name" >
                             </div>
                             <div class="form-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" name="image">
+                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileChange" >
                                     <label class="custom-file-label" for="customFile">Choose image</label>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                 <button class="btn btn-danger" @click="$emit('close')">Cancel</button>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-success">Add</button>
+                                <button class="btn btn-success" @click="insertCollection()">Add</button>
                             </div>
                         </div>
                     </div>
@@ -43,22 +43,25 @@ export default {
     data(){
         return{
             showModal: false,
-            obejctCollection:{
+            objectCollection:{
                 name:'',
                 image:''
             }
         };
     },
-    created() {
-        this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'});
-    },
     methods: {
+        onFileChange(e){
+            let files = e.target.files || e.dataTransfer.files;
+            if (files.length > 0){
+                this.objectCollection.image = "http://localhost:80/images/" + files[0]['name'];
+                // console.log(files[0]['name']);
+                return;
+            }
+        },
         insertCollection(){
-            let me = this;
-            axios
-                .post('/funkos_collection', this.obejctCollection)
+            axios.post('/funkos_collection', this.objectCollection)
                 .then( (response) => {
-
+                    console.log(response);
                 })
                 .cath( (error) => {
                     console.log(error);
