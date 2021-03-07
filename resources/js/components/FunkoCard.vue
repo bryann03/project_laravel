@@ -1,10 +1,10 @@
 <template>
     <main>
         <div class="card m-5" style="width: auto">
-            <img src="" class="card-img-top" :alt="collection.name">
+            <img :src="collection.imagen" class="card-img-top" :alt="collection.name">
             <div class="card-body">
                 <h5 class="card-title">{{ collection.name }}</h5>
-                <a href="" class="btn btn-primary">Explorar</a>
+                <button type="button" class="btn btn-danger" @click="deleteColletion(collection.id)">Delete</button>
             </div>
         </div>
     </main>
@@ -21,6 +21,10 @@ export default {
     },
     methods: {
         // ...mapActions(["getApi"])
+        deleteCollection(collectionId){
+            this.$emit('delete', collectionId);
+            // console.log(collectionId);
+        }
     },
     computed: {
         // ...mapState(['arrayFunkosCollecion'])

@@ -29,18 +29,20 @@ class FunkoCollectionController extends Controller
     public function store(Request $request)
     {
         $funko_collection = new FunkoCollection();
-
-        echo "\n";
-        print_r($request);
-        echo "\n";
-        die;
         $funko_collection->name = $request->input('name');
-        $image_file = $request->input('image');
-        echo "\nIMAGE: $image_file";
-        echo "\n";
-        die;
+        $funko_collection->imagen = $request->input('image');
 
-        return $request;
+        try {
+            $funko_collection->save();
+            $respuesta = (new FunkoCollectionResource($funko_collection))
+                        ->response()
+                        ->setStatusCode(201);
+        } catch (QueryException $e) {
+            $respuesta = response()
+                        ->json(['error' => $e], 400);
+        }
+
+        return $respuesta;
     }
 
     /**

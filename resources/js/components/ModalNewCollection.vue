@@ -61,9 +61,9 @@ export default {
         insertCollection(){
             axios.post('/funkos_collection', this.objectCollection)
                 .then( (response) => {
-                    console.log(response);
+                    // console.log(response);
                 })
-                .cath( (error) => {
+                .catch( (error) => {
                     console.log(error);
                 })
         }
