@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Clases\Util;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FunkoCollectionResource;
 use App\Models\FunkoCollection;
@@ -38,8 +39,9 @@ class FunkoCollectionController extends Controller
                         ->response()
                         ->setStatusCode(201);
         } catch (QueryException $e) {
+            $mensaje = Util::errorMessage($e);
             $respuesta = response()
-                        ->json(['error' => $e], 400);
+                        ->json(['error' => $mensaje], 400);
         }
 
         return $respuesta;
@@ -74,8 +76,30 @@ class FunkoCollectionController extends Controller
      * @param  \App\Models\FunkoCollection  $funkoCollection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FunkoCollection $funkoCollection)
+    public function destroy($collectionId)
     {
-        //
+        $funko_collection = FunkoCollection::find($collectionId);
+        if($funko_collection == null)
+        {
+            $respuesta = response()
+                        ->json(['error'=>"¡ELEMENTO NO ENCONTRADO!"], 404);
+        }
+        else
+        {
+            try
+            {
+                $funko_collection->delete();
+                $respuesta = (new FunkoCollectionResource($funko_collection))
+                            ->response()
+                            ->setStatusCode(200);
+            }
+            catch(QueryException $e)
+            {
+                $mensaje = Util::errorMessage($e);
+                $respuesta = response()
+                            ->json(['error' => $mensaje], 400);
+            }
+        }
+        return $respuesta;
     }
 }

@@ -8,20 +8,12 @@
 
         </modal-new-collection>
         <!-- FIN MODAL -->
+
         <div class="row text-center mt-5 justify-content-center">
             <div v-for="collection in arrayFunkosCollection" :key="collection.id"
                 class="col-lg-6 col-sm-12 col-md-10">
                 <funko-card v-bind:collection="collection" @delete="deleteCollection"></funko-card>
             </div>
-            <!-- <div class="col-lg-6 col-sm-12 col-md-10">
-                <funko-card></funko-card>
-            </div>
-            <div class="col-lg-6 col-sm-12 col-md-10">
-                <funko-card></funko-card>
-            </div>
-            <div class="col-lg-6 col-sm-12 col-md-10">
-                <funko-card></funko-card>
-            </div> -->
         </div>
     </main>
 </template>
@@ -42,7 +34,13 @@ export default {
     methods: {
         ...mapActions(["getApi"]),
         deleteCollection(collectionId){
-            console.log('asdasd');
+            axios.delete("/funkos_collection/" + collectionId)
+                .then( (result) => {
+                    console.log(result);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            // console.log(collectionId);
         }
     },
     computed: {

@@ -4,7 +4,7 @@
             <img :src="collection.imagen" class="card-img-top" :alt="collection.name">
             <div class="card-body">
                 <h5 class="card-title">{{ collection.name }}</h5>
-                <button type="button" class="btn btn-danger" @click="deleteColletion(collection.id)">Delete</button>
+                <button type="button" class="btn btn-danger" @click="deleteCollection(collection.id)">Delete</button>
             </div>
         </div>
     </main>
