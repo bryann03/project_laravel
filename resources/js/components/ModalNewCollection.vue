@@ -49,6 +49,9 @@ export default {
             }
         };
     },
+    created(){
+        console.log(this.objectInfo);
+    },
     methods: {
         onFileChange(e){
             let files = e.target.files || e.dataTransfer.files;
@@ -67,7 +70,8 @@ export default {
                     console.log(error);
                 })
         }
-    }
+    },
+    props:['actionApi', 'objectInfo']
 }
 </script>
 

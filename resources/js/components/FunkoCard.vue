@@ -4,7 +4,7 @@
             <img :src="collection.imagen" class="card-img-top" :alt="collection.name">
             <div class="card-body">
                 <h5 class="card-title">{{ collection.name }}</h5>
-                <button type="button" class="btn btn-danger" @click="deleteCollection(collection.id)">Delete</button>
+                <button type="button" class="btn btn-danger" @click="deleteCollection(collection, 'delete')">Delete</button>
             </div>
         </div>
     </main>
@@ -21,8 +21,8 @@ export default {
     },
     methods: {
         // ...mapActions(["getApi"])
-        deleteCollection(collectionId){
-            this.$emit('delete', collectionId);
+        deleteCollection(collection, apiAction){
+            this.$emit('delete', { object: collection, action: apiAction } );
             // console.log(collectionId);
         }
     },

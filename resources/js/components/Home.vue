@@ -1,10 +1,10 @@
 <template>
     <main>
         <h1 class="text-center">Stock Funko Pop</h1>
-        <button id="show-modal" type="button" class="btn btn-success" @click="showModal = true">Add New Collection</button>
+        <button type="button" class="btn btn-success" @click="showModal = true">Add New Collection</button>
 
         <!-- MODAL ADD COLLECTION -->
-        <modal-new-collection v-if="showModal" @close="showModal = false">
+        <modal-new-collection v-if="showModal" @close="showModal = false" :actionApi="actionModal" :objectInfo="objectToModal">
 
         </modal-new-collection>
         <!-- FIN MODAL -->
@@ -12,7 +12,7 @@
         <div class="row text-center mt-5 justify-content-center">
             <div v-for="collection in arrayFunkosCollection" :key="collection.id"
                 class="col-lg-6 col-sm-12 col-md-10">
-                <funko-card v-bind:collection="collection" @delete="deleteCollection"></funko-card>
+                <funko-card v-bind:collection="collection" @delete="openModal"></funko-card>
             </div>
         </div>
     </main>
@@ -25,7 +25,9 @@ import { mapState, mapMutations, mapActions } from "vuex";
 export default {
     data(){
         return{
-            showModal: false
+            showModal: false,
+            objectToModal: null,
+            actionModal: ''
         };
     },
     created() {
@@ -33,6 +35,11 @@ export default {
     },
     methods: {
         ...mapActions(["getApi"]),
+        openModal( { object, action } ){
+            this.objectToModal = object;
+            this.actionModal = action;
+            this.showModal = true;
+        },
         deleteCollection(collectionId){
             axios.delete("/funkos_collection/" + collectionId)
                 .then( (result) => {
