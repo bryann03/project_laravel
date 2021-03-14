@@ -70,13 +70,13 @@ export default {
                 this.titleModal = 'New collection';
                 break;
             case 'update':
-                this.objectCollection = this.objectInfo;
                 this.titleModal = 'Update collection';
+                this.objectCollection['name'] = this.objectInfo['name'];
+                this.objectCollection['imagen'] = this.objectInfo['imagen'];
                 break;
             default:
                 break;
         }
-        console.log(this.actionApi);
     },
     methods: {
         onFileChange(e){
