@@ -4,31 +4,42 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New collection</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$emit('close')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form action>
-                            <div class="form-group">
-                                <input type="text" class="form-control" required id="recipient-name" placeholder="Name" v-model="objectCollection.name" >
-                            </div>
-                            <div class="form-group">
+                            <div v-if="actionApi === 'insert'" class="form-group">
+                                <input type="text" class="form-control mb-2" required id="recipient-name" placeholder="Name" v-model="objectCollection.name" >
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="customFile" @change="onFileChange" >
                                     <label class="custom-file-label" for="customFile">Choose image</label>
                                 </div>
+                            </div>
+
+                            <div v-else-if="actionApi === 'update'" class="form-group">
+                                <input type="text" class="form-control mb-2" required id="recipient-name" placeholder="Name" v-model="objectCollection.name" >
+                                <img :src="objectCollection.imagen" :alt="objectCollection.name" class="img-fluid" >
+                                <input type="file" class="custom-file-input" id="customFile" @change="onFileChange" >
+                                <label class="btn btn-primary" for="customFile">Change image</label>
+                            </div>
+
+                            <div v-else-if="actionApi === 'delete'" class="form-group">
+                                <h5 >Dou you want remove the <strong>{{ objectInfo.name }} </strong> collection?</h5>
+                                <img :src="objectInfo.imagen" :alt="objectInfo.name" class="img-fluid" >
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <div class="row">
                             <div class="col-6">
-                                <button class="btn btn-danger" @click="$emit('close')">Cancel</button>
+                                <button class="btn btn-warning" @click="$emit('close')">Cancel</button>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-success" @click="insertCollection()">Add</button>
+                                <button v-if="actionApi === 'delete'" class="btn btn-danger">Delete</button>
+                                <button v-else-if="actionApi === 'insert'" class="btn btn-success" @click="insertCollection()">Add</button>
                             </div>
                         </div>
                     </div>
@@ -43,20 +54,35 @@ export default {
     data(){
         return{
             showModal: false,
+            titleModal: '',
             objectCollection:{
                 name:'',
-                image:''
+                imagen:''
             }
         };
     },
     created(){
-        console.log(this.objectInfo);
+        switch (this.actionApi) {
+            case 'delete':
+                this.titleModal = 'Delete collection';
+                break;
+            case 'insert':
+                this.titleModal = 'New collection';
+                break;
+            case 'update':
+                this.objectCollection = this.objectInfo;
+                this.titleModal = 'Update collection';
+                break;
+            default:
+                break;
+        }
+        console.log(this.actionApi);
     },
     methods: {
         onFileChange(e){
             let files = e.target.files || e.dataTransfer.files;
             if (files.length > 0){
-                this.objectCollection.image = "http://localhost:80/images/" + files[0]['name'];
+                this.objectCollection.imagen = "http://localhost:80/images/" + files[0]['name'];
                 // console.log(files[0]['name']);
                 return;
             }

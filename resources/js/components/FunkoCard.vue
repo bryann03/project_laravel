@@ -5,6 +5,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ collection.name }}</h5>
                 <button type="button" class="btn btn-danger" @click="deleteCollection(collection, 'delete')">Delete</button>
+                <button type="button" class="btn btn-primary" @click="updateCollection(collection, 'update')">Edit</button>
             </div>
         </div>
     </main>
@@ -24,7 +25,11 @@ export default {
         deleteCollection(collection, apiAction){
             this.$emit('delete', { object: collection, action: apiAction } );
             // console.log(collectionId);
-        }
+        },
+        updateCollection(collection, apiAction){
+            this.$emit('update', { object: collection, action: apiAction } );
+            // console.log(collectionId);
+        },
     },
     computed: {
         // ...mapState(['arrayFunkosCollecion'])
