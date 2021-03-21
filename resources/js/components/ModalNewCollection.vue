@@ -38,8 +38,9 @@
                                 <button class="btn btn-warning" @click="$emit('close')">Cancel</button>
                             </div>
                             <div class="col-6">
-                                <button v-if="actionApi === 'delete'" class="btn btn-danger">Delete</button>
+                                <button v-if="actionApi === 'delete'" class="btn btn-danger" @click="deleteCollection(objectInfo.id)">Delete</button>
                                 <button v-else-if="actionApi === 'insert'" class="btn btn-success" @click="insertCollection()">Add</button>
+                                <button v-else-if="actionApi === 'update'" class="btn btn-success" >Save</button>
                             </div>
                         </div>
                     </div>
@@ -95,6 +96,17 @@ export default {
                 .catch( (error) => {
                     console.log(error);
                 })
+        },
+        deleteCollection(collectionId){
+            let me = this;
+            axios.delete("/funkos_collection/" + collectionId)
+                .then( (result) => {
+                    me.$emit('refreshData');
+                    me.$emit('messageInfo', {message: 'The collection has been successfully deleted!'});
+                    me.$emit('close');
+                }).catch((err) => {
+                    console.log(err);
+                });
         }
     },
     props:['actionApi', 'objectInfo']

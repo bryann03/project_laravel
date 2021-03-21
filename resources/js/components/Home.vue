@@ -4,7 +4,8 @@
         <button type="button" class="btn btn-success" @click="openModal( {action: 'insert'} )">Add New Collection</button>
 
         <!-- MODAL ADD COLLECTION -->
-        <modal-new-collection v-if="showModal" @close="showModal = false" :actionApi="actionModal" :objectInfo="objectToModal">
+        <modal-new-collection v-if="showModal" @close="showModal = false" :actionApi="actionModal" :objectInfo="objectToModal"
+                            @refreshData="getCollections" @messageInfo="showMsg">
 
         </modal-new-collection>
         <!-- FIN MODAL -->
@@ -31,23 +32,20 @@ export default {
         };
     },
     created() {
-        this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'});
+        this.getCollections();
     },
     methods: {
         ...mapActions(["getApi"]),
+        getCollections(){
+            this.getApi({ruta: 'funkos_collection', nombreTabla: 'collection'});
+        },
         openModal( { object, action } ){
             this.objectToModal = object;
             this.actionModal = action;
             this.showModal = true;
         },
-        deleteCollection(collectionId){
-            axios.delete("/funkos_collection/" + collectionId)
-                .then( (result) => {
-                    console.log(result);
-                }).catch((err) => {
-                    console.log(err);
-                });
-            // console.log(collectionId);
+        showMsg({message}){
+            console.log(message);
         }
     },
     computed: {
@@ -56,7 +54,6 @@ export default {
 }
 </script>
 
-<style lang="scs
-FunkoCards">
+<style lang="scss">
 
 </style>
