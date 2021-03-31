@@ -21,9 +21,27 @@
 
                             <div v-else-if="actionApi === 'update'" class="form-group">
                                 <input type="text" class="form-control mb-2" required id="recipient-name" placeholder="Name" v-model="objectCollection.name" >
-                                <img :src="objectCollection.imagen" :alt="objectCollection.name" class="img-fluid" >
-                                <input type="file" class="custom-file-input" id="customFile" @change="onFileChange" >
-                                <label class="btn btn-primary" for="customFile">Change image</label>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <img :src="objectCollection.imagen" :alt="objectCollection.name" class="img-fluid" >
+                                    </div>
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <div class="row text-center">
+                                            <div class="col-12">
+                                                <label class="btn btn-primary" for="customFile">Change image</label>
+                                            </div>
+                                            <input type="file" class="custom-file-input" id="customFile" @change="onFileChange">
+                                            <div class="col-12 mb-5">
+                                                <button class="btn btn-warning" @click="$emit('close')" type="button">Cancel</button>
+                                            </div>
+                                            <div class="col-12">
+                                                <button v-if="actionApi === 'delete'" type="button" class="btn btn-danger" @click="deleteCollection(objectInfo.id)">Delete</button>
+                                                <button v-else-if="actionApi === 'insert'" type="button" class="btn btn-success" @click="insertCollection()">Add</button>
+                                                <button v-else-if="actionApi === 'update'" type="button" class="btn btn-success" >Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div v-else-if="actionApi === 'delete'" class="form-group">
@@ -32,7 +50,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <div class="row">
                             <div class="col-6">
                                 <button class="btn btn-warning" @click="$emit('close')">Cancel</button>
@@ -43,7 +61,7 @@
                                 <button v-else-if="actionApi === 'update'" class="btn btn-success" >Save</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -153,6 +171,11 @@ export default {
 .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.modal-content{
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
 }
 
 </style>
